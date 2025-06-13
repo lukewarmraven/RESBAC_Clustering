@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Dashboard</h1>
+    <form action="/select-risk" method="POST">
+        <button type="submit" name="risk_num" value="1">1</button>
+        <button type="submit" name="risk_num" value="2">2</button>
+        <button type="submit" name="risk_num" value="3">3</button>
+        <button type="submit" name="risk_num" value="0">All</button>
+    </form>
+    <form method="POST" action="/cluster">
+        <div>
+            <label for="clusterCount">Cluster Count: </label>
+            <input max="24" type="number" id="clusterCount" name="clusterCount">
+            <label for="clusterCount">(max: 24) </label>
+        </div>
+        <button type="submit"> Confirm </button>
+    </form>
+    
+    <!-- EMBEDS THE MAPPING -->
+    <iframe src="../static/newMap.html" width="50%" height="500px" style="border:none;"></iframe>
+</body>
+
+</html>
