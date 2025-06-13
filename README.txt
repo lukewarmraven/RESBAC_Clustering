@@ -1,5 +1,5 @@
 WHAT TO DO:
-1. After cloning or downloading the ALGORITHMS folder, create and env file containing the secret keys below (EXPIRES: 3 mos - Created in 06/13/2025)
+1. After cloning or downloading the ALGORITHMS folder, create an env file containing the secret keys below (EXPIRES: 3 mos - Created in 06/13/2025)
 access it here: https://share.doppler.com/s/ueo3nkpvswuhbq2iaiv6qtswzopekrx5xnwua6as
 password: Qdvj68h6VJnNHFCj77Amv7BqG6HiFlKxn6Vy34xaFVWHxAayIYwZ3DNdbxp56cw6
 
