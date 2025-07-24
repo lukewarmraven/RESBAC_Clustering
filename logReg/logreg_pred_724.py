@@ -1,0 +1,32 @@
+import pandas as pd
+import joblib
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+import pandas as pd
+import numpy as np
+
+model = joblib.load('logreg_model.pkl')
+
+newData = pd.read_csv("C:\\Users\\bacqu\\Documents\\CAPSTONE PROJ\\dataset_random_state_78.csv")
+#print(len(newData))
+# preprocessing
+X = newData.drop('priorityLevel',axis=1)
+y = newData[['priorityLevel']]
+
+y_pred = model.predict(X)
+
+# print("Accuracy Score: ", accuracy_score(y,y_pred))
+# print("Classification Report: ",classification_report(y,y_pred))
+# print("Confusion: \n", confusion_matrix(y,y_pred))
+# print(y_pred)
+
+sample1 = np.array([[
+    1, #isElderly
+    1, #isPregnantOrInfant
+    1, #isPWD
+    1, #isMedicallyDependent
+    1, #needsEvacuationHelp
+    1, #hasGuardian
+    3  #locationRiskLevel
+]])
+predicted = model.predict(sample1)
+print("Predicted Priority from Sample: ", predicted[0])

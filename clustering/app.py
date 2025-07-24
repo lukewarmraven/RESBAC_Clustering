@@ -7,11 +7,13 @@ import os
 load_dotenv()
 app = Flask(__name__)
 
+
 app.secret_key = os.getenv('SECRET_KEY')
 
 @app.route("/")
 def dashboard():
-    return render_template('dashboard.html')
+    cluster_count = session.get('cluster_count', 1)
+    return render_template('dashboard.html', cluster_count=cluster_count)
 
 @app.route('/select-risk', methods=['POST'])
 def select_risk():

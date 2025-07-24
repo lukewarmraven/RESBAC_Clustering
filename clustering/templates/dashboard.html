@@ -9,9 +9,10 @@
 <body>
     <h1>Dashboard</h1>
     <form action="/select-risk" method="POST">
-        <button type="submit" name="risk_num" value="1">1</button>
-        <button type="submit" name="risk_num" value="2">2</button>
-        <button type="submit" name="risk_num" value="3">3</button>
+        <label>Risk Levels: </label>
+        <button type="submit" name="risk_num" value="1">Low (1)</button>
+        <button type="submit" name="risk_num" value="2">Moderate (2)</button>
+        <button type="submit" name="risk_num" value="3">High (3)</button>
         <button type="submit" name="risk_num" value="0">All</button>
     </form>
     <form method="POST" action="/cluster">
@@ -19,6 +20,7 @@
             <label for="clusterCount">Cluster Count: </label>
             <input max="24" type="number" id="clusterCount" name="clusterCount">
             <label for="clusterCount">(max: 24) </label>
+            <h2>Cluster Count: {{cluster_count}}</h2>
         </div>
         <button type="submit"> Confirm </button>
     </form>
