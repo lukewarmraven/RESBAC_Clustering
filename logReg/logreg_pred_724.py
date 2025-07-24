@@ -6,7 +6,7 @@ import numpy as np
 
 model = joblib.load('logreg_model.pkl')
 
-newData = pd.read_csv("C:\\Users\\bacqu\\Documents\\CAPSTONE PROJ\\dataset_random_state_78.csv")
+newData = pd.read_csv("C:\\Users\\bacqu\\Documents\\CAPSTONE PROJ\\priority_scores_balanced_rs45.csv")
 #print(len(newData))
 # preprocessing
 X = newData.drop('priorityLevel',axis=1)
@@ -20,13 +20,13 @@ y_pred = model.predict(X)
 # print(y_pred)
 
 sample1 = np.array([[
-    1, #isElderly
-    1, #isPregnantOrInfant
-    1, #isPWD
-    1, #isMedicallyDependent
-    1, #needsEvacuationHelp
+    3, #isElderly
+    2, #isPregnantOrInfant
+    0, #isPWD
+    0, #isMedicallyDependent
+    0, #needsEvacuationHelp
     1, #hasGuardian
-    3  #locationRiskLevel
+    1  #locationRiskLevel
 ]])
 predicted = model.predict(sample1)
 print("Predicted Priority from Sample: ", predicted[0])

@@ -5,18 +5,30 @@ from sklearn.metrics import accuracy_score,classification_report,confusion_matri
 import joblib
 
 
-data = pd.read_csv("C:\\Users\\bacqu\\Documents\\CAPSTONE PROJ\\dataset_random_state_54.csv")
-#print(data.head())
-#print(data.isna().sum()) # checks how many null values are there for each column
-features = ['isElderly','isPregnantOrInfant','isPWD','isMedicallyDependent','needsEvacuationHelp','hasGuardian','locationRiskLevel']
-label = ['priorityLevel']
-X = data[features]
-y = data[label]
+# data = pd.read_csv("C:\\Users\\bacqu\\Documents\\CAPSTONE PROJ\\dataset_random_state_54.csv")
+upData = pd.read_csv("C:\\Users\\bacqu\\Documents\\CAPSTONE PROJ\\priority_scores_balanced_rs1.csv")
+# print(upData)
+# print(data.isna().sum()) # checks how many null values are there for each column
+# for data
+# features = ['isElderly','isPregnantOrInfant','isPWD','isMedicallyDependent','needsEvacuationHelp','hasGuardian','locationRiskLevel']
+# label = ['priorityLevel']
+# X = data[features]
+# y = data[label]
+
+# for upData
+upFeatures = ['isElderly','isPregnantOrInfant','isPWD','isMedicallyDependent','needsEvacuationHelp','hasGuardian','locationRiskLevel']
+upLabel = ['priorityLevel']
+upX = upData[upFeatures]
+upy = upData[upLabel]
 
 # splitting 
-X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=20)
-model = LogisticRegression(max_iter=1000,multi_class='multinomial',solver='lbfgs')
-model.fit(X_train,y_train)
+# data
+# X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=20)
+# upData
+X_train,X_test,y_train,y_test = train_test_split(upX,upy,test_size=0.3,random_state=20)
+
+model = LogisticRegression(max_iter=1000,solver='lbfgs')
+model.fit(X_train,y_train.values.ravel())
 
 y_pred = model.predict(X_test)
 
@@ -27,6 +39,7 @@ print("Classification Report: ", classification_report(y_test,y_pred,zero_divisi
 # recall - many false negatives, missed actual instances, how many are the actual instances that are identified or predicted correctly
 # f-score - tells if either precision or recall is balanced, low means bad prediction of classif
 # support - number of actual items in the dataset of that classification
+
 print("Confusion Matrix: \n", confusion_matrix(y_test,y_pred))
 
 # Save model
