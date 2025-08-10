@@ -3,9 +3,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score,classification_report,confusion_matrix
 import joblib
+import numpy as np
 
-
-# data = pd.read_csv("C:\\Users\\bacqu\\Documents\\CAPSTONE PROJ\\dataset_random_state_54.csv")
+# data = pd.read_csv("C:\\Users\\bacqu\\Documents\\CAPSTONE PROJ\\dataset_random_state_45.csv")
+# RS 1 IS 88% ACCURACY ######################### <<<<<<<<<<<<<<<<<<<<<<<<<<<<
 upData = pd.read_csv("C:\\Users\\bacqu\\Documents\\CAPSTONE PROJ\\priority_scores_balanced_rs1.csv")
 # print(upData)
 # print(data.isna().sum()) # checks how many null values are there for each column
@@ -25,7 +26,7 @@ upy = upData[upLabel]
 # data
 # X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=20)
 # upData
-X_train,X_test,y_train,y_test = train_test_split(upX,upy,test_size=0.3,random_state=20)
+X_train,X_test,y_train,y_test = train_test_split(upX,upy,test_size=0.2,random_state=20)
 
 model = LogisticRegression(max_iter=1000,solver='lbfgs')
 model.fit(X_train,y_train.values.ravel())
@@ -47,3 +48,15 @@ joblib.dump(model, 'logreg_model.pkl')
 
 # If you used a scaler (like StandardScaler), save it too
 #joblib.dump(scaler, 'scaler.pkl')
+
+# feature importance
+coefficients = model.coef_
+
+featureImportance = pd.DataFrame({
+    'Feature': upFeatures,
+    'Coefficient (importance)' : np.mean(np.abs(coefficients),axis=0)
+})
+
+featureImportance = featureImportance.sort_values(by='Coefficient (importance)',ascending=False)
+print(featureImportance)
+
