@@ -29,7 +29,7 @@ sample1 = np.array([[
     1, #isMedicallyDependent
     0, #needsEvacuationHelp
     0, #hasGuardian
-    3  #locationRiskLevel
+    1  #locationRiskLevel
 ]])
 predicted = model.predict(sample1)
 print("Predicted Priority from Sample: ", predicted[0])
