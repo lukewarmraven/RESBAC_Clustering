@@ -4,7 +4,7 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 import pandas as pd
 import numpy as np
 
-model = joblib.load('C:\\Users\\bacqu\\Documents\\CAPSTONE PROJ\\rf_model.pkl')
+model = joblib.load('C:\\Users\\bacqu\\Documents\\CAPSTONE PROJ\\regressorModel.pkl')
 
 newData = pd.read_csv("ALGORITHMS/datasets/dataset615.csv")
 #print(len(newData))
@@ -13,14 +13,6 @@ X = newData.drop('priorityLevel',axis=1)
 y = newData[['priorityLevel']]
 
 y_pred = model.predict(X)
-
-# print("Accuracy Score: ", accuracy_score(y,y_pred))
-# print("Classification Report: ",classification_report(y,y_pred))
-# print("Confusion: \n", confusion_matrix(y,y_pred))
-# X['priorityPrediction'] = y_pred
-# print(X)
-# X.to_csv('rfPredicted.csv')
-# print(y_pred)
 
 sampleData = pd.DataFrame([{
     'ElderlyScore':             0, #isElderly

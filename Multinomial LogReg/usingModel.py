@@ -20,12 +20,12 @@ y_pred = model.predict(X)
 
 sampleData = pd.DataFrame([{
     'ElderlyScore':             0, #isElderly
-    'PregnantOrInfantScore' :   0, #isPregnantOrInfant
-    'PhysicalPWDScore':         1, #PhysicalScore
+    'PregnantOrInfantScore' :   3, #isPregnantOrInfant
+    'PhysicalPWDScore':         0, #PhysicalScore
     'PsychPWDScore':            0, #PsychScore
-    'SensoryPWDScore':          1, #SensoryScore
+    'SensoryPWDScore':          0, #SensoryScore
     'MedicallyDependentScore':  0, #isMedicallyDependent
-    'needsEvacuationHelp':      0, #needsEvacuationHelp
+    'needsEvacuationHelp':      1, #needsEvacuationHelp
     'hasGuardian':              0, #hasGuardian
     'locationRiskLevel':        1  #locationRiskLevel
 }])
@@ -37,7 +37,7 @@ coefficients = model.coef_
 features = sampleData.columns.tolist()
 featureImportance = pd.DataFrame({
     'Feature': features,
-    'Coefficient (importance)' : np.mean(np.abs(coefficients),axis=0)
+    'Importance' : np.mean(np.abs(coefficients),axis=0)
 })
-featureImportance = featureImportance.sort_values(by='Coefficient (importance)',ascending=False)
+featureImportance = featureImportance.sort_values(by='Importance',ascending=False)
 print(featureImportance)

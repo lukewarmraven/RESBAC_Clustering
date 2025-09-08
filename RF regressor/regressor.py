@@ -12,13 +12,16 @@ y = data['priorityLevel']
 
 X_train, X_test, y_train,y_test = train_test_split(X,y, test_size=0.3, random_state=15)
 
-model = RandomForestClassifier(n_estimators=100, random_state=61)
+model = RandomForestRegressor(n_estimators=100, random_state=61)
 model.fit(X_train,y_train)
 
 y_pred = model.predict(X_test)
 
-print(accuracy_score(y_test,y_pred))
-print(classification_report(y_test,y_pred,zero_division=0))
-print(confusion_matrix(y_test,y_pred))
+print("MSE:", mean_squared_error(y_test, y_pred))
+print("MAE:", mean_absolute_error(y_test, y_pred))
+print("R2 Score:", r2_score(y_test, y_pred))
+# print(accuracy_score(y_test,y_pred))
+# print(classification_report(y_test,y_pred,zero_division=0))
+# print(confusion_matrix(y_test,y_pred))
 
-joblib.dump(model, 'rf_model.pkl')
+joblib.dump(model, 'regressorModel.pkl')
