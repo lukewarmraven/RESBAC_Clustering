@@ -25,13 +25,13 @@ y_pred = model.predict(X)
 sampleData = pd.DataFrame([{
     'ElderlyScore':             0, #isElderly
     'PregnantOrInfantScore' :   0, #isPregnantOrInfant
-    'PhysicalPWDScore':         2, #PhysicalScore
-    'PsychPWDScore':            1, #PsychScore
-    'SensoryPWDScore':          1, #SensoryScore
-    'MedicallyDependentScore':  1, #isMedicallyDependent
-    'needsEvacuationHelp':      1, #needsEvacuationHelp
+    'PhysicalPWDScore':         0, #PhysicalScore
+    'PsychPWDScore':            0, #PsychScore
+    'SensoryPWDScore':          0, #SensoryScore
+    'MedicallyDependentScore':  0, #isMedicallyDependent
+    'needsEvacuationHelp':      0, #needsEvacuationHelp
     'hasGuardian':              0, #hasGuardian
-    'locationRiskLevel':        3  #locationRiskLevel
+    'locationRiskLevel':        1  #locationRiskLevel
 }])
 samplePred = model.predict(sampleData)
 print("Predicted Priority from Sample: ", samplePred[0])

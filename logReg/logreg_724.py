@@ -80,4 +80,4 @@ for idx, label in enumerate(class_labels):
 results_df = results_df.reset_index(drop=True)
 
 # Show first 10 rows
-print(results_df.head(10))
+# print(results_df.head(10))

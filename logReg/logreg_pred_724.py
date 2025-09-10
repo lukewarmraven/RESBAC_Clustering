@@ -23,10 +23,10 @@ y_pred = model.predict(X)
 # print(y_pred)
 
 sample1 = np.array([[
-    1, #isElderly
+    0, #isElderly
     0, #isPregnantOrInfant
-    1, #isPWD
-    1, #isMedicallyDependent
+    0, #isPWD
+    0, #isMedicallyDependent
     0, #needsEvacuationHelp
     0, #hasGuardian
     1  #locationRiskLevel
