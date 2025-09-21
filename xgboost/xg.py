@@ -11,14 +11,13 @@ import shap
 # ===========================
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
-data = pd.read_csv("ALGORITHMS/datasets/RFR/rfr45.csv")
+data = pd.read_csv("..\\datasets\\RFR\\rfr45.csv")
 
 X = data.drop('priorityLevel', axis=1)
 y = data['priorityLevel']
 
 # ===========================
 # FEATURE WEIGHTING (for DMatrix)
-# ===========================
 feature_weights = {
     "ElderlyScore": 1,
     "PregnantOrInfantScore": 1,
@@ -26,7 +25,7 @@ feature_weights = {
     "PsychPWDScore": 1,
     "SensoryPWDScore": 1,
     "MedicallyDependentScore": 1,
-    "hasGuardian": 1,          # <-- heavier weight
+    "hasGuardian": 3,          
     "locationRiskLevel": 1
 }
 
@@ -35,7 +34,6 @@ weights_list = [feature_weights[col] for col in X.columns]
 
 # ===========================
 # TRAIN/TEST SPLIT
-# ===========================
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.3, random_state=15
 )
@@ -46,7 +44,6 @@ dtest = xgb.DMatrix(X_test, label=y_test, feature_weights=weights_list)
 
 # ===========================
 # MODEL (XGBoost train API)
-# ===========================
 params = {
     "objective": "reg:squarederror",
     "max_depth": 3,
@@ -58,9 +55,10 @@ params = {
     "seed": 45
 }
 
-model = xgb.train(params, dtrain, num_boost_round=100)
+model = xgb.train(params, dtrain, num_boost_round=50,evals=[(dtest, "test")], early_stopping_rounds=20, verbose_eval=False)
 y_pred = model.predict(dtest)
 
+# ==========================
 # cross-validate r2
 kf = KFold(n_splits=5, shuffle=True, random_state=45)
 r2_scores = []
@@ -71,7 +69,7 @@ for train_idx, test_idx in kf.split(X):
     dtrain = xgb.DMatrix(X_train, label=y_train, feature_weights=weights_list)
     dtest = xgb.DMatrix(X_test, label=y_test, feature_weights=weights_list)
 
-    model = xgb.train(params, dtrain, num_boost_round=100)
+    model = xgb.train(params, dtrain, num_boost_round=50)
     y_pred = model.predict(dtest)
 
     r2_scores.append(r2_score(y_test, y_pred))
@@ -88,14 +86,14 @@ model.save_model("xgbModel.json")
 # SAMPLE PREDICTION
 # ===========================
 sampleData = pd.DataFrame([{
-    'ElderlyScore':             1,
-    'PregnantOrInfantScore':    0,
-    'PhysicalPWDScore':         1,
-    'PsychPWDScore':            0,
-    'SensoryPWDScore':          0,
-    'MedicallyDependentScore':  1,
-    'hasGuardian':              0,
-    'locationRiskLevel':        3
+        'ElderlyScore':             1,
+        'PregnantOrInfantScore':    2,
+        'PhysicalPWDScore':         0,
+        'PsychPWDScore':            0,
+        'SensoryPWDScore':          0,
+        'MedicallyDependentScore':  0,
+        'hasGuardian':              1,
+        'locationRiskLevel':        3
 }])
 
 dsample = xgb.DMatrix(sampleData, feature_weights=weights_list)
@@ -105,7 +103,7 @@ print("Predicted Priority from Sample:", samplePred[0])
 # ===========================
 # FEATURE IMPORTANCE
 # ===========================
-importance = model.get_score(importance_type="weight")
+importance = model.get_score(importance_type="gain")
 importance_df = pd.DataFrame({
     "Feature": list(importance.keys()),
     "Importance": list(importance.values())
@@ -119,6 +117,8 @@ shap_values = explainer(sampleData)
 
 # # Local effect (for one row)
 shap.plots.waterfall(shap_values[0])
+print(X['hasGuardian'].corr(y))
+print(X['locationRiskLevel'].corr(y))
 # # Global summary
 # shap.plots.beeswarm(shap_values)
 

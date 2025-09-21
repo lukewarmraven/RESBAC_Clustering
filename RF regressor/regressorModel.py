@@ -34,9 +34,10 @@ PWD: we intend to split each PWD types into Physical, Psych, and Sensory to not 
         Any - 0-4, 1 point for each, 4 max
 
 Pregnant/Infant:
-    Pregnant - 0-2
-    Infant - 0-2
-    Both - 0-4
+    Pregnant - 2
+    Infant - 2
+    Both - 4
+    None - 0
 
 Medically Dependent: The number of counted dependency determine the points.
     Any - 0-4, 1 point for each, 4 max
