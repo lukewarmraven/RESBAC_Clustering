@@ -109,7 +109,7 @@ print("R2 Score:", r2_score(y_test, y_pred))
 
 # Save model
 # model.save_model("../../prio/xgb.json")
-# model.save_model("../../xgb.json")
+model.save_model("xgb.json")
 
 # ===========================
 # SAMPLE PREDICTION
