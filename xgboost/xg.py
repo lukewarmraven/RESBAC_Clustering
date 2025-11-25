@@ -10,7 +10,7 @@ import shap
 # ===========================
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
-data = pd.read_csv("..\\datasets\\mock\\ds45.csv")
+data = pd.read_csv("..\\datasets\\mock\\ds45 copy.csv")
 
 X = data.drop('priorityLevel', axis=1)
 y = data['priorityLevel']
@@ -108,19 +108,19 @@ print("MAE:", mean_absolute_error(y_test, y_pred))
 print("R2 Score:", r2_score(y_test, y_pred))
 
 # Save model
-model.save_model("../../prio/xgb.json")
+# model.save_model("../../prio/xgb.json")
 # model.save_model("../../xgb.json")
 
 # ===========================
 # SAMPLE PREDICTION
 # ===========================
 sampleData = pd.DataFrame([{
-        'ElderlyScore':             0,
+        'ElderlyScore':             2,
         'PregnantOrInfantScore':    0,
         'PhysicalPWDScore':         0,
         'PsychPWDScore':            0,
         'SensoryPWDScore':          0,
-        'MedicallyDependentScore':  4,
+        'MedicallyDependentScore':  0,
         'locationRiskLevel':        3
 }])
 
